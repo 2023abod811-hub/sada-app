@@ -74,21 +74,6 @@ export default function NotificationsScreen() {
     }
   };
 
-  const getNotificationColor = (type: string) => {
-    switch (type) {
-      case 'like':
-        return '#EF4444';
-      case 'comment':
-        return colors.primary;
-      case 'follow':
-        return colors.primary;
-      case 'message':
-        return colors.primary;
-      default:
-        return colors.muted;
-    }
-  };
-
   return (
     <ScreenContainer className="p-0" edges={['top', 'left', 'right']}>
       {/* رأس الشاشة */}
@@ -96,9 +81,9 @@ export default function NotificationsScreen() {
         className="px-4 py-4 border-b border-border flex-row items-center justify-between"
         style={{ borderBottomColor: colors.border }}
       >
-        <Text className="text-2xl font-bold text-foreground">الإشعارات</Text>
-        <Pressable className="p-2 active:opacity-70">
-          <IconSymbol name="ellipsis" size={24} color={colors.foreground} />
+        <Text className="text-2xl font-black text-primary">الإشعارات</Text>
+        <Pressable className="p-2 active:opacity-70" style={{ backgroundColor: colors.surface }}>
+          <IconSymbol name="ellipsis" size={22} color={colors.primary} />
         </Pressable>
       </View>
 
@@ -109,9 +94,7 @@ export default function NotificationsScreen() {
             {mockNotifications.map((notification) => (
               <Pressable
                 key={notification.id}
-                className={`flex-row items-center p-4 border-b border-border active:opacity-70 ${
-                  !notification.isRead ? 'bg-surface' : ''
-                }`}
+                className={`flex-row items-center p-4 border-b border-border active:opacity-70`}
                 style={{
                   borderBottomColor: colors.border,
                   backgroundColor: !notification.isRead ? colors.surface : 'transparent',
@@ -125,10 +108,10 @@ export default function NotificationsScreen() {
 
                 {/* محتوى الإشعار */}
                 <View className="ml-3 flex-1">
-                  <Text className="text-base font-semibold text-foreground">
+                  <Text className="text-sm font-bold text-foreground">
                     {notification.user.name}
                   </Text>
-                  <Text className="text-sm text-muted mt-1">
+                  <Text className="text-xs text-muted mt-1 font-semibold">
                     {notification.message}
                   </Text>
                   <Text className="text-xs text-muted mt-1">
@@ -140,13 +123,13 @@ export default function NotificationsScreen() {
                 <View
                   className="w-10 h-10 rounded-full items-center justify-center ml-2"
                   style={{
-                    backgroundColor: getNotificationColor(notification.type) + '20',
+                    backgroundColor: colors.primary + '30',
                   }}
                 >
                   <IconSymbol
                     name={getNotificationIcon(notification.type) as any}
                     size={18}
-                    color={getNotificationColor(notification.type)}
+                    color={colors.primary}
                   />
                 </View>
               </Pressable>
@@ -155,7 +138,7 @@ export default function NotificationsScreen() {
         ) : (
           <View className="flex-1 items-center justify-center">
             <IconSymbol name="bell" size={48} color={colors.muted} />
-            <Text className="text-lg text-muted mt-4">لا توجد إشعارات</Text>
+            <Text className="text-base text-muted mt-4 font-semibold">لا توجد إشعارات</Text>
           </View>
         )}
       </ScrollView>

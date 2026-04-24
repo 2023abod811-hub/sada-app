@@ -1,4 +1,4 @@
-import { ScrollView, View, Text, Pressable, FlatList } from 'react-native';
+import { View, Text, Pressable, FlatList } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { PostCard } from '@/components/post-card';
 import { mockPosts } from '@/lib/mock-data';
@@ -30,16 +30,16 @@ export default function HomeScreen() {
     <ScreenContainer className="p-0" edges={['top', 'left', 'right']}>
       {/* رأس الشاشة */}
       <View
-        className="flex-row items-center justify-between px-4 py-3 border-b border-border"
+        className="flex-row items-center justify-between px-4 py-4 border-b border-border"
         style={{ borderBottomColor: colors.border }}
       >
-        <Text className="text-2xl font-bold text-foreground">صدى</Text>
-        <View className="flex-row gap-3">
-          <Pressable className="p-2 active:opacity-70">
-            <IconSymbol name="bell" size={24} color={colors.foreground} />
+        <Text className="text-3xl font-black text-primary">صدى</Text>
+        <View className="flex-row gap-2">
+          <Pressable className="p-2 active:opacity-60" style={{ backgroundColor: colors.surface }}>
+            <IconSymbol name="bell" size={22} color={colors.primary} />
           </Pressable>
-          <Pressable className="p-2 active:opacity-70">
-            <IconSymbol name="paperplane" size={24} color={colors.foreground} />
+          <Pressable className="p-2 active:opacity-60" style={{ backgroundColor: colors.surface }}>
+            <IconSymbol name="paperplane" size={22} color={colors.primary} />
           </Pressable>
         </View>
       </View>

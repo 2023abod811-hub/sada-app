@@ -15,7 +15,7 @@ export default function ProfileScreen() {
         {/* رأس الملف الشخصي */}
         <View className="border-b border-border" style={{ borderBottomColor: colors.border }}>
           {/* صورة الغلاف */}
-          <View className="h-32 bg-gradient-to-r from-primary to-primary opacity-20" />
+          <View className="h-32" style={{ backgroundColor: colors.primary }} />
 
           {/* بيانات المستخدم */}
           <View className="px-4 pb-4">
@@ -23,16 +23,16 @@ export default function ProfileScreen() {
             <View className="mb-4 -mt-16">
               <Image
                 source={{ uri: user.avatar }}
-                className="w-32 h-32 rounded-full border-4 border-surface"
+                className="w-32 h-32 rounded-full border-4"
                 style={{ borderColor: colors.surface }}
               />
             </View>
 
             {/* الاسم والمعلومات */}
-            <Text className="text-2xl font-bold text-foreground mb-1">
+            <Text className="text-2xl font-black text-foreground mb-1">
               {user.name}
             </Text>
-            <Text className="text-base text-muted mb-3">
+            <Text className="text-sm font-bold text-primary mb-3">
               {user.username}
             </Text>
             <Text className="text-sm text-foreground mb-4 leading-relaxed">
@@ -40,43 +40,43 @@ export default function ProfileScreen() {
             </Text>
 
             {/* الإحصائيات */}
-            <View className="flex-row justify-around mb-4 py-3 border-t border-b border-border"
+            <View className="flex-row justify-around mb-4 py-4 border-t border-b border-border"
               style={{ borderTopColor: colors.border, borderBottomColor: colors.border }}>
               <View className="items-center">
-                <Text className="text-xl font-bold text-foreground">
+                <Text className="text-xl font-black text-primary">
                   {user.postsCount}
                 </Text>
-                <Text className="text-xs text-muted mt-1">منشور</Text>
+                <Text className="text-xs text-muted mt-1 font-bold">منشور</Text>
               </View>
               <View className="items-center">
-                <Text className="text-xl font-bold text-foreground">
+                <Text className="text-xl font-black text-primary">
                   {user.followersCount}
                 </Text>
-                <Text className="text-xs text-muted mt-1">متابع</Text>
+                <Text className="text-xs text-muted mt-1 font-bold">متابع</Text>
               </View>
               <View className="items-center">
-                <Text className="text-xl font-bold text-foreground">
+                <Text className="text-xl font-black text-primary">
                   {user.followingCount}
                 </Text>
-                <Text className="text-xs text-muted mt-1">متابعة</Text>
+                <Text className="text-xs text-muted mt-1 font-bold">متابعة</Text>
               </View>
             </View>
 
             {/* الأزرار */}
             <View className="flex-row gap-3">
               <Pressable
-                className="flex-1 bg-primary py-3 rounded-lg active:opacity-80"
+                className="flex-1 py-3 rounded-lg active:opacity-80"
                 style={{ backgroundColor: colors.primary }}
               >
-                <Text className="text-center font-semibold text-background">
-                  تعديل الملف الشخصي
+                <Text className="text-center font-black text-white text-sm">
+                  تعديل الملف
                 </Text>
               </Pressable>
               <Pressable
-                className="px-4 py-3 border border-border rounded-lg active:opacity-70"
-                style={{ borderColor: colors.border }}
+                className="px-4 py-3 border-2 rounded-lg active:opacity-70"
+                style={{ borderColor: colors.primary }}
               >
-                <IconSymbol name="paperplane" size={20} color={colors.foreground} />
+                <IconSymbol name="paperplane" size={20} color={colors.primary} />
               </Pressable>
             </View>
           </View>
@@ -84,7 +84,7 @@ export default function ProfileScreen() {
 
         {/* قسم المنشورات */}
         <View className="px-4 py-4">
-          <Text className="text-lg font-bold text-foreground mb-4">
+          <Text className="text-lg font-black text-foreground mb-4">
             المنشورات ({userPosts.length})
           </Text>
 
@@ -102,12 +102,12 @@ export default function ProfileScreen() {
                     />
                   )}
                   <View className="p-3">
-                    <Text className="text-sm text-foreground mb-2 leading-relaxed">
+                    <Text className="text-xs text-foreground mb-2 leading-relaxed font-semibold">
                       {post.content}
                     </Text>
                     <View className="flex-row gap-4 text-xs text-muted">
-                      <Text>{post.likesCount} إعجاب</Text>
-                      <Text>{post.commentsCount} تعليق</Text>
+                      <Text className="font-bold">{post.likesCount} إعجاب</Text>
+                      <Text className="font-bold">{post.commentsCount} تعليق</Text>
                     </View>
                   </View>
                 </Pressable>
@@ -115,7 +115,7 @@ export default function ProfileScreen() {
             </View>
           ) : (
             <View className="items-center justify-center py-8">
-              <Text className="text-muted">لا توجد منشورات بعد</Text>
+              <Text className="text-muted font-semibold">لا توجد منشورات بعد</Text>
             </View>
           )}
         </View>

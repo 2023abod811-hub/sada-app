@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable, ScrollView } from 'react-native';
+import { View, Text, Image, Pressable } from 'react-native';
 import { Post } from '@/lib/types';
 import { useColors } from '@/hooks/use-colors';
 import { IconSymbol } from './ui/icon-symbol';
@@ -50,7 +50,7 @@ export function PostCard({
 
   return (
     <View
-      className="bg-surface border-b border-border"
+      className="bg-surface border-b border-border mb-2"
       style={{ borderBottomColor: colors.border }}
     >
       {/* رأس المنشور - بيانات المستخدم */}
@@ -61,23 +61,23 @@ export function PostCard({
             className="w-12 h-12 rounded-full"
           />
           <View className="ml-3 flex-1">
-            <Text className="text-base font-semibold text-foreground">
+            <Text className="text-base font-bold text-foreground">
               {post.user.name}
             </Text>
-            <Text className="text-sm text-muted">
+            <Text className="text-xs text-muted">
               {post.user.username} • {formatDate(post.createdAt)}
             </Text>
           </View>
         </View>
-        <Pressable className="p-2">
-          <IconSymbol name="chevron.right" size={24} color={colors.muted} />
+        <Pressable className="p-2 active:opacity-70">
+          <IconSymbol name="ellipsis" size={20} color={colors.muted} />
         </Pressable>
       </View>
 
       {/* محتوى المنشور */}
       {post.content && (
         <View className="px-4 pb-3">
-          <Text className="text-base text-foreground leading-relaxed">
+          <Text className="text-sm text-foreground leading-relaxed">
             {post.content}
           </Text>
         </View>
@@ -92,66 +92,70 @@ export function PostCard({
       )}
 
       {/* إحصائيات المنشور */}
-      <View className="flex-row justify-between px-4 py-2 border-t border-border">
-        <Text className="text-sm text-muted">
+      <View className="flex-row justify-between px-4 py-2 border-t border-border"
+        style={{ borderTopColor: colors.border }}>
+        <Text className="text-xs text-muted font-semibold">
           {likesCount} إعجاب
         </Text>
         <View className="flex-row gap-4">
-          <Text className="text-sm text-muted">
+          <Text className="text-xs text-muted font-semibold">
             {post.commentsCount} تعليق
           </Text>
-          <Text className="text-sm text-muted">
+          <Text className="text-xs text-muted font-semibold">
             {post.sharesCount} مشاركة
           </Text>
         </View>
       </View>
 
       {/* أزرار التفاعل */}
-      <View className="flex-row justify-around border-t border-border">
+      <View className="flex-row justify-around border-t border-border"
+        style={{ borderTopColor: colors.border }}>
         <Pressable
           onPress={handleLike}
-          className="flex-row items-center justify-center flex-1 py-3 active:opacity-70"
+          className="flex-row items-center justify-center flex-1 py-3 active:opacity-60"
+          style={{ backgroundColor: isLiked ? colors.primary + '15' : 'transparent' }}
         >
           <IconSymbol
             name={isLiked ? 'heart.fill' : 'heart'}
-            size={20}
-            color={isLiked ? '#EF4444' : colors.muted}
+            size={18}
+            color={isLiked ? colors.primary : colors.muted}
           />
-          <Text className={`ml-2 text-sm font-medium ${isLiked ? 'text-error' : 'text-muted'}`}>
+          <Text className={`ml-2 text-xs font-bold ${isLiked ? 'text-primary' : 'text-muted'}`}>
             إعجاب
           </Text>
         </Pressable>
 
         <Pressable
           onPress={() => onComment?.(post.id)}
-          className="flex-row items-center justify-center flex-1 py-3 active:opacity-70"
+          className="flex-row items-center justify-center flex-1 py-3 active:opacity-60"
         >
-          <IconSymbol name="bubble.right" size={20} color={colors.muted} />
-          <Text className="ml-2 text-sm font-medium text-muted">
+          <IconSymbol name="bubble.right" size={18} color={colors.muted} />
+          <Text className="ml-2 text-xs font-bold text-muted">
             تعليق
           </Text>
         </Pressable>
 
         <Pressable
           onPress={() => onShare?.(post.id)}
-          className="flex-row items-center justify-center flex-1 py-3 active:opacity-70"
+          className="flex-row items-center justify-center flex-1 py-3 active:opacity-60"
         >
-          <IconSymbol name="paperplane" size={20} color={colors.muted} />
-          <Text className="ml-2 text-sm font-medium text-muted">
+          <IconSymbol name="paperplane" size={18} color={colors.muted} />
+          <Text className="ml-2 text-xs font-bold text-muted">
             مشاركة
           </Text>
         </Pressable>
 
         <Pressable
           onPress={handleSave}
-          className="flex-row items-center justify-center flex-1 py-3 active:opacity-70"
+          className="flex-row items-center justify-center flex-1 py-3 active:opacity-60"
+          style={{ backgroundColor: isSaved ? colors.primary + '15' : 'transparent' }}
         >
           <IconSymbol
             name={isSaved ? 'bookmark.fill' : 'bookmark'}
-            size={20}
+            size={18}
             color={isSaved ? colors.primary : colors.muted}
           />
-          <Text className={`ml-2 text-sm font-medium ${isSaved ? 'text-primary' : 'text-muted'}`}>
+          <Text className={`ml-2 text-xs font-bold ${isSaved ? 'text-primary' : 'text-muted'}`}>
             حفظ
           </Text>
         </Pressable>

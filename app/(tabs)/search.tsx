@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView, Pressable, Image, FlatList } from 'react-native';
+import { View, Text, TextInput, ScrollView, Pressable, Image } from 'react-native';
 import { ScreenContainer } from '@/components/screen-container';
 import { useColors } from '@/hooks/use-colors';
 import { IconSymbol } from '@/components/ui/icon-symbol';
@@ -46,23 +46,23 @@ export default function SearchScreen() {
   return (
     <ScreenContainer className="p-0" edges={['top', 'left', 'right']}>
       {/* شريط البحث */}
-      <View className="px-4 py-3 border-b border-border" style={{ borderBottomColor: colors.border }}>
+      <View className="px-4 py-4 border-b border-border" style={{ borderBottomColor: colors.border }}>
         <View
-          className="flex-row items-center bg-surface rounded-full px-4 py-2"
-          style={{ backgroundColor: colors.surface }}
+          className="flex-row items-center rounded-full px-4 py-3 border-2"
+          style={{ backgroundColor: colors.surface, borderColor: colors.primary }}
         >
-          <IconSymbol name="magnifyingglass" size={20} color={colors.muted} />
+          <IconSymbol name="magnifyingglass" size={20} color={colors.primary} />
           <TextInput
-            placeholder="ابحث عن مستخدمين أو منشورات..."
+            placeholder="ابحث..."
             placeholderTextColor={colors.muted}
             value={searchQuery}
             onChangeText={handleSearch}
-            className="flex-1 ml-3 text-foreground"
+            className="flex-1 ml-3 text-foreground font-semibold"
             style={{ color: colors.foreground }}
           />
           {searchQuery && (
             <Pressable onPress={() => handleSearch('')}>
-              <IconSymbol name="xmark.circle.fill" size={20} color={colors.muted} />
+              <IconSymbol name="xmark.circle.fill" size={20} color={colors.primary} />
             </Pressable>
           )}
         </View>
@@ -72,7 +72,7 @@ export default function SearchScreen() {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         {searchResults.length > 0 ? (
           <View className="p-4">
-            <Text className="text-lg font-bold text-foreground mb-4">
+            <Text className="text-lg font-black text-foreground mb-4">
               نتائج البحث
             </Text>
             {searchResults.map((result, index) => (
@@ -88,20 +88,20 @@ export default function SearchScreen() {
                       className="w-12 h-12 rounded-full"
                     />
                     <View className="ml-3 flex-1">
-                      <Text className="text-base font-semibold text-foreground">
+                      <Text className="text-sm font-bold text-foreground">
                         {result.data.name}
                       </Text>
-                      <Text className="text-sm text-muted">
+                      <Text className="text-xs text-muted font-semibold">
                         {result.data.username} • {result.data.followersCount} متابع
                       </Text>
                     </View>
                   </>
                 ) : (
                   <View className="flex-1">
-                    <Text className="text-base font-semibold text-foreground mb-1">
+                    <Text className="text-sm font-bold text-foreground mb-1">
                       {result.data.user.name}
                     </Text>
-                    <Text className="text-sm text-foreground leading-relaxed">
+                    <Text className="text-xs text-foreground leading-relaxed">
                       {result.data.content}
                     </Text>
                   </View>
@@ -111,7 +111,7 @@ export default function SearchScreen() {
           </View>
         ) : (
           <View className="p-4">
-            <Text className="text-lg font-bold text-foreground mb-4">
+            <Text className="text-lg font-black text-foreground mb-4">
               الهاشتاجات الشهيرة
             </Text>
             {trendingHashtags.map((hashtag, index) => (
@@ -121,14 +121,14 @@ export default function SearchScreen() {
                 style={{ borderBottomColor: colors.border }}
               >
                 <View>
-                  <Text className="text-base font-semibold text-primary">
+                  <Text className="text-sm font-black text-primary">
                     {hashtag.tag}
                   </Text>
-                  <Text className="text-sm text-muted mt-1">
+                  <Text className="text-xs text-muted mt-1 font-semibold">
                     {hashtag.count} منشور
                   </Text>
                 </View>
-                <IconSymbol name="chevron.right" size={20} color={colors.muted} />
+                <IconSymbol name="chevron.right" size={18} color={colors.primary} />
               </Pressable>
             ))}
           </View>
