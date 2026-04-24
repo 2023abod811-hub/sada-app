@@ -1,48 +1,66 @@
-import { ScrollView, Text, View, TouchableOpacity } from "react-native";
+import { ScrollView, View, Text, Pressable, FlatList } from 'react-native';
+import { ScreenContainer } from '@/components/screen-container';
+import { PostCard } from '@/components/post-card';
+import { mockPosts } from '@/lib/mock-data';
+import { useColors } from '@/hooks/use-colors';
+import { useState } from 'react';
+import { IconSymbol } from '@/components/ui/icon-symbol';
 
-import { ScreenContainer } from "@/components/screen-container";
-
-/**
- * Home Screen - NativeWind Example
- *
- * This template uses NativeWind (Tailwind CSS for React Native).
- * You can use familiar Tailwind classes directly in className props.
- *
- * Key patterns:
- * - Use `className` instead of `style` for most styling
- * - Theme colors: use tokens directly (bg-background, text-foreground, bg-primary, etc.); no dark: prefix needed
- * - Responsive: standard Tailwind breakpoints work on web
- * - Custom colors defined in tailwind.config.js
- */
 export default function HomeScreen() {
+  const colors = useColors();
+  const [posts, setPosts] = useState(mockPosts);
+
+  const handleLike = (postId: string) => {
+    console.log('Liked post:', postId);
+  };
+
+  const handleComment = (postId: string) => {
+    console.log('Comment on post:', postId);
+  };
+
+  const handleShare = (postId: string) => {
+    console.log('Share post:', postId);
+  };
+
+  const handleSave = (postId: string) => {
+    console.log('Save post:', postId);
+  };
+
   return (
-    <ScreenContainer className="p-6">
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="flex-1 gap-8">
-          {/* Hero Section */}
-          <View className="items-center gap-2">
-            <Text className="text-4xl font-bold text-foreground">Welcome</Text>
-            <Text className="text-base text-muted text-center">
-              Edit app/(tabs)/index.tsx to get started
-            </Text>
-          </View>
-
-          {/* Example Card */}
-          <View className="w-full max-w-sm self-center bg-surface rounded-2xl p-6 shadow-sm border border-border">
-            <Text className="text-lg font-semibold text-foreground mb-2">NativeWind Ready</Text>
-            <Text className="text-sm text-muted leading-relaxed">
-              Use Tailwind CSS classes directly in your React Native components.
-            </Text>
-          </View>
-
-          {/* Example Button */}
-          <View className="items-center">
-            <TouchableOpacity className="bg-primary px-6 py-3 rounded-full active:opacity-80">
-              <Text className="text-background font-semibold">Get Started</Text>
-            </TouchableOpacity>
-          </View>
+    <ScreenContainer className="p-0" edges={['top', 'left', 'right']}>
+      {/* رأس الشاشة */}
+      <View
+        className="flex-row items-center justify-between px-4 py-3 border-b border-border"
+        style={{ borderBottomColor: colors.border }}
+      >
+        <Text className="text-2xl font-bold text-foreground">صدى</Text>
+        <View className="flex-row gap-3">
+          <Pressable className="p-2 active:opacity-70">
+            <IconSymbol name="bell" size={24} color={colors.foreground} />
+          </Pressable>
+          <Pressable className="p-2 active:opacity-70">
+            <IconSymbol name="paperplane" size={24} color={colors.foreground} />
+          </Pressable>
         </View>
-      </ScrollView>
+      </View>
+
+      {/* قائمة المنشورات */}
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <PostCard
+            post={item}
+            onLike={handleLike}
+            onComment={handleComment}
+            onShare={handleShare}
+            onSave={handleSave}
+          />
+        )}
+        scrollEnabled={true}
+        nestedScrollEnabled={true}
+        contentContainerStyle={{ flexGrow: 1 }}
+      />
     </ScreenContainer>
   );
 }
