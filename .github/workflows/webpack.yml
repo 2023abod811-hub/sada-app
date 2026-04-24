@@ -1,4 +1,4 @@
-name: بناء تطبيق صدى
+name: Build APK
 
 on:
   push:
@@ -10,18 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: إعداد Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
       
-      - name: تثبيت المكتبات
+      - name: Install dependencies
         run: npm install -g eas-cli && npm install
       
-      - name: بناء APK
+      - name: Build APK
         run: eas build --platform android --local
       
-      - name: رفع الملف
+      - name: Upload APK
         uses: actions/upload-artifact@v3
         with:
           name: app-release.apk
